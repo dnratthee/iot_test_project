@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'register_ui.dart';
+import 'package:iot_test_project/views/register_ui.dart';
+import 'package:iot_test_project/views/home_ui.dart';
+import 'package:iot_test_project/services/call_api.dart';
+import 'package:iot_test_project/widgets/my_appbar.dart';
+import 'package:iot_test_project/widgets/my_button.dart';
+import 'package:iot_test_project/widgets/my_loading.dart';
+import 'package:iot_test_project/widgets/my_padding.dart';
+import 'package:iot_test_project/widgets/my_alert.dart';
+import 'package:iot_test_project/widgets/my_textfield.dart';
 
 class LoginUI extends StatefulWidget {
   const LoginUI({super.key});
@@ -10,124 +17,124 @@ class LoginUI extends StatefulWidget {
 }
 
 class _LoginUIState extends State<LoginUI> {
+  bool _isLoading = false;
   bool _isHidden = true;
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void doLogin() async {
+    setState(() {
+      _isLoading = true;
+    });
+    if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) => const MyAlert(
+                title: 'Login',
+                content: 'Please fill in all information.',
+              ));
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    await CallApi.login(usernameController.text, passwordController.text)
+        .then((response) {
+      if (response != null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return const HomeUI();
+        }));
+      } else {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const MyAlert(
+                  title: 'Login',
+                  content: 'Invalid username or password.',
+                ));
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 156, 26, 37),
-        title: Text(
-          'IoT SAU 2024',
-          style: GoogleFonts.kanit(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
-          ),
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Image(
-                image: const AssetImage('assets/images/logo.png'),
-                width: MediaQuery.of(context).size.width * 0.5,
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Text(
-                'Login to your account',
-                style: GoogleFonts.kanit(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 156, 26, 37)),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              TextField(
-                  decoration: InputDecoration(
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(255, 156, 26, 37),
-                      ),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(255, 156, 26, 37),
-                      ),
-                    ),
-                    hintText: 'Username',
-                    labelText: 'Username',
-                    hintStyle: GoogleFonts.kanit(),
-                    labelStyle: GoogleFonts.kanit(),
-                    border: const OutlineInputBorder(),
-                  ),
-                  textInputAction: TextInputAction.next),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              TextField(
-                  decoration: InputDecoration(
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 156, 26, 37),
-                        ),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 156, 26, 37),
-                        ),
-                      ),
-                      hintText: 'Password',
-                      labelText: 'Password',
-                      hintStyle: GoogleFonts.kanit(),
-                      labelStyle: GoogleFonts.kanit(),
-                      border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _isHidden = !_isHidden;
-                            });
-                          },
-                          icon: Icon(_isHidden
-                              ? Icons.visibility_off
-                              : Icons.visibility))),
-                  obscureText: _isHidden,
-                  textInputAction: TextInputAction.done),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(MediaQuery.of(context).size.width * 0.8, 50),
-                  backgroundColor: const Color.fromARGB(255, 156, 26, 37),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                child: Text('Login',
-                    style:
-                        GoogleFonts.kanit(fontSize: 20, color: Colors.white)),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+    return MyLoading(
+        isLoading: _isLoading,
+        child: MyAppBar(
+          title: 'IoT SAU 2024',
+          child: SingleChildScrollView(
+            child: MyPadding(
+              size: 0.1,
+              isVertical: false,
+              isFirstChild: true,
+              child: Column(
                 children: <Widget>[
-                  Text('Don\'t have an account?', style: GoogleFonts.kanit()),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const RegisterUI();
-                      }));
-                    },
-                    child: Text('Register',
-                        style: GoogleFonts.kanit(
-                            color: Color.fromARGB(255, 156, 26, 37))),
+                  MyPadding(
+                      size: 0.03,
+                      isFirstChild: true,
+                      child: Image(
+                        image: const AssetImage('assets/images/logo.png'),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                      )),
+                  const MyPadding(
+                      size: 0.05,
+                      child: Text(
+                        'Login to your account',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 156, 26, 37)),
+                      )),
+                  MyPadding(
+                    size: 0.05,
+                    child: MyTextField(
+                        controller: usernameController,
+                        label: 'Username',
+                        hint: 'Username'),
+                  ),
+                  MyPadding(
+                      size: 0.05,
+                      child: MyTextField(
+                          controller: passwordController,
+                          label: 'Password',
+                          hint: 'Password',
+                          inputAction: TextInputAction.done,
+                          isHidden: _isHidden,
+                          suffixIcon: IconButton(
+                              onPressed: () =>
+                                  setState(() => _isHidden = !_isHidden),
+                              icon: Icon(_isHidden
+                                  ? Icons.visibility_off
+                                  : Icons.visibility)))),
+                  MyPadding(
+                      size: 0.05,
+                      child:
+                          MyButton(onPressed: () => doLogin(), text: 'Login')),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text('Don\'t have an account?'),
+                      TextButton(
+                        onPressed: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const RegisterUI();
+                        })),
+                        child: const Text('Register',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 156, 26, 37))),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

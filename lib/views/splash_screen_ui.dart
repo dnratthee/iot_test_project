@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'login_ui.dart';
+import 'package:iot_test_project/utils/store.dart';
+import 'package:iot_test_project/views/login_ui.dart';
+import 'package:iot_test_project/views/home_ui.dart';
 
 class SplashScreenUI extends StatefulWidget {
   const SplashScreenUI({super.key});
@@ -13,10 +14,19 @@ class _SplashScreenUIState extends State<SplashScreenUI> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const LoginUI();
-      }));
+
+    Future.delayed(const Duration(seconds: 3), () async {
+      if (Store.has('user')) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return const HomeUI();
+        }));
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return const LoginUI();
+        }));
+      }
     });
   }
 
@@ -33,9 +43,9 @@ class _SplashScreenUIState extends State<SplashScreenUI> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.2),
           const CircularProgressIndicator(),
           SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-          Text(
+          const Text(
             'IoT SAU 2024',
-            style: GoogleFonts.kanit(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       )),

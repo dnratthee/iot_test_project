@@ -1,6 +1,6 @@
 # IoT SAU 2024 - Flutter Project
 
-This project is used to study usage. [Flutter](https://flutter.dev/) connect to API.
+This project is used to study usage [Flutter](https://flutter.dev/) connect to API.
 
 ## Getting Started
 

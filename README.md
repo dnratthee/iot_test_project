@@ -2,15 +2,20 @@
 
 This project is used to study usage [Flutter](https://flutter.dev/) connect to API.
 
-## Getting Started
+## Project Screenshots
 
-This project is a starting point for a Flutter application.
+### Slash Screen
 
-A few resources to get you started if this is your first Flutter project:
+![Slash Screen](screenshots/slash_screen.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Home Page
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Home Page](screenshots/home_page.png)
+
+### Login Page
+
+![Login Page](screenshots/login_page.png)
+
+### Register Page
+
+![Register Page](screenshots/register_page.png)

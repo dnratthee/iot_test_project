@@ -12,6 +12,10 @@ This project is used to study usage [Flutter](https://flutter.dev/) connect to A
 
 ![Home Page](screenshots/home_page.png)
 
+### Detail Page
+
+![Detail Page](screenshots/detail_page.png)
+
 ### Login Page
 
 ![Login Page](screenshots/login_page.png)

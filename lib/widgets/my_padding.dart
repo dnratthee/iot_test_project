@@ -5,12 +5,14 @@ class MyPadding extends StatelessWidget {
   final bool isVertical;
   final Widget? child;
   final bool isFirstChild;
+  final bool isLastChild;
 
   const MyPadding({
     super.key,
     this.size = 0.05,
     this.isVertical = true,
     this.isFirstChild = false,
+    this.isLastChild = false,
     this.child,
   });
 
@@ -22,8 +24,12 @@ class MyPadding extends StatelessWidget {
             ? isFirstChild
                 ? EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * size)
-                : EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.height * size)
+                : isLastChild
+                    ? EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * size,
+                        bottom: MediaQuery.of(context).size.height * size * 2)
+                    : EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * size)
             : isFirstChild
                 ? EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * size)

@@ -1,3 +1,4 @@
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,8 @@ void main() {
       textTheme: GoogleFonts.sarabunTextTheme(baseTheme.textTheme),
     );
   }
+
+  initializeDateFormatting("th_TH");
 
   runApp(MaterialApp(
       theme: _buildTheme(Brightness.light),

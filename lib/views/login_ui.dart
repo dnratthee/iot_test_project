@@ -42,8 +42,8 @@ class _LoginUIState extends State<LoginUI> {
     }
 
     await CallApi.login(usernameController.text, passwordController.text)
-        .then((response) {
-      if (response != null) {
+        .then((user) {
+      if (user.token != null) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
           return const HomeUI();

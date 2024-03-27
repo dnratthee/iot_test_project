@@ -24,13 +24,13 @@ class Room {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['room_id'] = this.roomId;
-    data['temp1'] = this.temp1;
-    data['temp2'] = this.temp2;
-    data['temp3'] = this.temp3;
-    data['datesave'] = this.datesave;
-    data['timesave'] = this.timesave;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['room_id'] = roomId;
+    data['temp1'] = temp1;
+    data['temp2'] = temp2;
+    data['temp3'] = temp3;
+    data['datesave'] = datesave;
+    data['timesave'] = timesave;
     return data;
   }
 }

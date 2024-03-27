@@ -68,8 +68,8 @@ class _RegisterUIState extends State<RegisterUI> {
         age: int.parse(ageController.text),
         email: emailController.text);
 
-    CallApi.register(user).then((response) {
-      if (response != null) {
+    CallApi.register(user).then((user) {
+      if (user.token != null) {
         showMessage(context, 'Register successfully');
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pushAndRemoveUntil(context,

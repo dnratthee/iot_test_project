@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iot_test_project/utils/config.dart';
 import 'package:iot_test_project/utils/store.dart';
+import 'package:iot_test_project/views/info_air_conditioner.dart';
 import 'package:iot_test_project/views/login_ui.dart';
 import 'package:iot_test_project/widgets/my_appbar.dart';
 import 'package:iot_test_project/widgets/my_button_menu.dart';
@@ -19,7 +20,7 @@ class _HomeUIState extends State<HomeUI> {
       title: 'Home',
       actions: [
         IconButton(
-          icon: const Icon(Icons.logout_outlined, color: Colors.white),
+          icon: const Icon(Icons.logout_outlined),
           tooltip: 'Sing out',
           onPressed: () {
             Store.delete('user');
@@ -86,6 +87,21 @@ class _HomeUIState extends State<HomeUI> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MyButtonMenu(
+                          text: "Information Data\nAir Conditioners",
+                          width: 0.775,
+                          color: Colors.pink,
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const InfoAirConUI();
+                            }));
+                          }),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MyButtonMenu(
                           text: "A/C 1", color: Colors.green, onPressed: () {}),
                       MyButtonMenu(
                           text: "A/C 2", color: Colors.green, onPressed: () {}),
@@ -118,16 +134,6 @@ class _HomeUIState extends State<HomeUI> {
                           onPressed: () {}),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MyButtonMenu(
-                          text: "Line Chart\nBy Air and Date",
-                          width: 0.775,
-                          color: Colors.pink,
-                          onPressed: () {}),
-                    ],
-                  )
                 ],
               ),
             )

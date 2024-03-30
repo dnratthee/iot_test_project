@@ -1,18 +1,18 @@
 class Room {
   int? roomId;
-  String? temp1;
-  String? temp2;
-  String? temp3;
-  String? datesave;
-  String? timesave;
+  late String? temp1;
+  late String? temp2;
+  late String? temp3;
+  late String datesave;
+  late String timesave;
 
   Room(
       {this.roomId,
       this.temp1,
       this.temp2,
       this.temp3,
-      this.datesave,
-      this.timesave});
+      required this.datesave,
+      required this.timesave});
 
   Room.fromJson(Map<String, dynamic> json) {
     roomId = json['room_id'];

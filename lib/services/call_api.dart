@@ -11,7 +11,7 @@ class CallApi {
   static Future<User> login(String username, String password) async {
     try {
       final response = await CallApi.post(
-          '/user/auth',
+          '/api/user/auth',
           {
             'username': username,
             'password': password,
@@ -32,7 +32,7 @@ class CallApi {
 
   static Future<User> register(User user) async {
     try {
-      final response = await CallApi.post('/user/register', user.toJson());
+      final response = await CallApi.post('/api/user/register', user.toJson());
       if (response.status) {
         var user = User.fromJson(response.data as Map<String, dynamic>);
         if (user.token != null) {
@@ -48,7 +48,8 @@ class CallApi {
 
   static Future<List<Room>> getAllRoom() async {
     try {
-      final response = await CallApi.get('/room');
+      final response = await CallApi.get('/api/room');
+
       List<Room> rooms = await response.data
           .map<Room>((room) => Room.fromJson(room as Map<String, dynamic>))
           .toList();
@@ -58,7 +59,34 @@ class CallApi {
     }
   }
 
-  static Future<ApiResponse> get(String uri, {bool auth = true}) async {
+  static Future<List<Room>> getRoom(air) async {
+    var select = [];
+
+    if (air == 1) {
+      select.add('temp1');
+    } else if (air == 2) {
+      select.add('temp2');
+    } else if (air == 3) {
+      select.add('temp3');
+    }
+
+    select.add('datesave');
+    select.add('timesave');
+
+    try {
+      final response =
+          await CallApi.get('/api/room', query: {'select[]': select});
+      List<Room> rooms = await response.data
+          .map<Room>((room) => Room.fromJson(room as Map<String, dynamic>))
+          .toList();
+      return rooms;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<ApiResponse> get(String path,
+      {bool auth = true, Map<String, dynamic>? query}) async {
     var headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
@@ -68,10 +96,13 @@ class CallApi {
       headers['Authorization'] = Store.getValue('user', 'token');
     }
 
+    var uri = Uri.https(Config.BASE_URL, path, query);
+
     final response = await http.get(
-      Uri.parse('${Config.BASE_URL}$uri'),
+      uri,
       headers: headers,
     );
+
     if (response.statusCode == 200) {
       return ApiResponse.fromJson(
           jsonDecode(response.body) as Map<String, dynamic>);

@@ -102,11 +102,32 @@ class _HomeUIState extends State<HomeUI> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MyButtonMenu(
-                          text: "A/C 1", color: Colors.green, onPressed: () {}),
+                          text: "A/C 1",
+                          color: Colors.green,
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const InfoAirConUI(air: 1);
+                            }));
+                          }),
                       MyButtonMenu(
-                          text: "A/C 2", color: Colors.green, onPressed: () {}),
+                          text: "A/C 2",
+                          color: Colors.green,
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const InfoAirConUI(air: 2);
+                            }));
+                          }),
                       MyButtonMenu(
-                          text: "A/C 3", color: Colors.green, onPressed: () {})
+                          text: "A/C 3",
+                          color: Colors.green,
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const InfoAirConUI(air: 3);
+                            }));
+                          })
                     ],
                   ),
                   Row(

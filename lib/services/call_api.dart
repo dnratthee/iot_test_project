@@ -20,7 +20,7 @@ class CallApi {
       if (response.status) {
         var user = User.fromJson(response.data as Map<String, dynamic>);
         if (user.token != null) {
-          await Store.set('user', user.toJson());
+          await Store.set('user', user);
           return user;
         }
       }
@@ -36,7 +36,7 @@ class CallApi {
       if (response.status) {
         var user = User.fromJson(response.data as Map<String, dynamic>);
         if (user.token != null) {
-          await Store.set('user', user.toJson());
+          await Store.set('user', user);
           return user;
         }
       }
@@ -113,7 +113,7 @@ class CallApi {
     }
   }
 
-  static Future<ApiResponse> post(String uri, Map<String, dynamic> data,
+  static Future<ApiResponse> post(String path, Map<String, dynamic> data,
       {bool auth = true}) async {
     var headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -124,8 +124,10 @@ class CallApi {
       headers['Authorization'] = Store.getValue('user', 'token');
     }
 
+    var uri = Uri.https(Config.BASE_URL, path);
+
     final response = await http.post(
-      Uri.parse('${Config.BASE_URL}$uri'),
+      uri,
       headers: headers,
       body: jsonEncode(data),
     );

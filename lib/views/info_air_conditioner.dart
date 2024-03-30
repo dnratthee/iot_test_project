@@ -36,7 +36,7 @@ class _InfoAirConUIState extends State<InfoAirConUI> {
             decoration: BoxDecoration(
               color: Colors.blue[900],
             ),
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             alignment: Alignment.center,
             child: Text(
               col,

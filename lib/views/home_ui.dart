@@ -3,7 +3,7 @@ import 'package:iot_test_project/utils/config.dart';
 import 'package:iot_test_project/utils/store.dart';
 import 'package:iot_test_project/views/info_air_conditioner.dart';
 import 'package:iot_test_project/views/login_ui.dart';
-import 'package:iot_test_project/widgets/my_appbar.dart';
+import 'package:iot_test_project/widgets/my_app_bar.dart';
 import 'package:iot_test_project/widgets/my_button_menu.dart';
 import 'package:iot_test_project/widgets/my_padding.dart';
 
@@ -134,25 +134,28 @@ class _HomeUIState extends State<HomeUI> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MyButtonMenu(
-                          text: "Bar Chart\nBy Date",
-                          width: 0.35,
-                          color: Colors.cyan,
-                          onPressed: () {}),
+                        text: "Bar Chart\nBy Date",
+                        width: 0.35,
+                        color: Colors.cyan,
+                        // onPressed: () {}
+                      ),
                       MyButtonMenu(
-                          text: "Line Chart\nBy Date",
-                          width: 0.35,
-                          color: Colors.cyan,
-                          onPressed: () {}),
+                        text: "Line Chart\nBy Date",
+                        width: 0.35,
+                        color: Colors.cyan,
+                        // onPressed: () {}
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MyButtonMenu(
-                          text: "Bar Chart\nBy Air and Date",
-                          width: 0.775,
-                          color: Colors.purple,
-                          onPressed: () {}),
+                        text: "Bar Chart\nBy Air and Date",
+                        width: 0.775,
+                        color: Colors.purple,
+                        // onPressed: () {}
+                      ),
                     ],
                   ),
                 ],

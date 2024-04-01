@@ -13,7 +13,7 @@ class MyButtonMenu extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.color = Config.COLOR_RED,
-    this.width = 0.2,
+    this.width = 0.24,
     this.fontSize = 14,
   });
 

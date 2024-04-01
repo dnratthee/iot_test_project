@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iot_test_project/utils/config.dart';
 import 'package:iot_test_project/utils/store.dart';
-import 'package:iot_test_project/views/info_air_conditioner.dart';
+import 'package:iot_test_project/views/info_table_ui.dart';
+import 'package:iot_test_project/views/info_chart_ui.dart';
 import 'package:iot_test_project/views/login_ui.dart';
 import 'package:iot_test_project/widgets/my_app_bar.dart';
 import 'package:iot_test_project/widgets/my_button_menu.dart';
@@ -93,7 +94,7 @@ class _HomeUIState extends State<HomeUI> {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return const InfoAirConUI();
+                              return const InfoTableUI();
                             }));
                           }),
                     ],
@@ -101,61 +102,44 @@ class _HomeUIState extends State<HomeUI> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      MyButtonMenu(
-                          text: "A/C 1",
-                          color: Colors.green,
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const InfoAirConUI(air: 1);
-                            }));
-                          }),
-                      MyButtonMenu(
-                          text: "A/C 2",
-                          color: Colors.green,
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const InfoAirConUI(air: 2);
-                            }));
-                          }),
-                      MyButtonMenu(
-                          text: "A/C 3",
-                          color: Colors.green,
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const InfoAirConUI(air: 3);
-                            }));
-                          })
+                      for (int i = 1; i <= 3; i++)
+                        MyButtonMenu(
+                            text: "A/C $i",
+                            color: Colors.green,
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return InfoTableUI(air: i);
+                              }));
+                            }),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      MyButtonMenu(
-                        text: "Bar Chart\nBy Date",
-                        width: 0.35,
-                        color: Colors.cyan,
-                        // onPressed: () {}
-                      ),
-                      MyButtonMenu(
-                        text: "Line Chart\nBy Date",
-                        width: 0.35,
-                        color: Colors.cyan,
-                        // onPressed: () {}
-                      ),
+                      for (int i = 1; i <= 2; i++)
+                        MyButtonMenu(
+                            text: "${i == 1 ? "Bar" : "Line"} Chart\nBy Date",
+                            width: 0.37,
+                            color: Colors.cyan,
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return InfoChartUI(
+                                    type: i == 1 ? "Bar" : "Line");
+                              }));
+                            }),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      MyButtonMenu(
-                        text: "Bar Chart\nBy Air and Date",
-                        width: 0.775,
-                        color: Colors.purple,
-                        // onPressed: () {}
-                      ),
+                      for (int i = 1; i <= 3; i++)
+                        MyButtonMenu(
+                          text: "A/C $i\nBy Date",
+                          color: Colors.purple,
+                          // onPressed: () {}
+                        ),
                     ],
                   ),
                 ],

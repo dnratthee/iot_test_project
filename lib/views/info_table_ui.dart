@@ -6,16 +6,16 @@ import 'package:iot_test_project/widgets/my_app_bar.dart';
 import 'package:iot_test_project/widgets/my_padding.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-class InfoAirConUI extends StatefulWidget {
+class InfoTableUI extends StatefulWidget {
   final int? air;
 
-  const InfoAirConUI({Key? key, this.air}) : super(key: key);
+  const InfoTableUI({Key? key, this.air}) : super(key: key);
 
   @override
-  State<InfoAirConUI> createState() => _InfoAirConUIState();
+  State<InfoTableUI> createState() => _InfoTableUIState();
 }
 
-class _InfoAirConUIState extends State<InfoAirConUI> {
+class _InfoTableUIState extends State<InfoTableUI> {
   Future getRoom(air) async {
     List<Room> rooms;
     if (air != null) {

@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+
 import 'package:iot_test_project/models/room.dart';
 import 'package:iot_test_project/utils/config.dart';
 import 'package:iot_test_project/utils/store.dart';
@@ -50,6 +52,30 @@ class CallApi {
     try {
       final response = await CallApi.get('/api/room');
 
+      List<Room> rooms = await response.data
+          .map<Room>((room) => Room.fromJson(room as Map<String, dynamic>))
+          .toList();
+      return rooms;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<List<Room>> getAllRoomByDate(DateTime date) async {
+    try {
+      DateFormat dateFormat = DateFormat('y-M-d');
+
+      final response = await CallApi.get('/api/room', query: {
+        'where': jsonEncode({
+          'datesave': {
+            'value': dateFormat.format(date),
+          },
+        })
+      });
+
+      if (response.status == false || response.data == null) {
+        return [];
+      }
       List<Room> rooms = await response.data
           .map<Room>((room) => Room.fromJson(room as Map<String, dynamic>))
           .toList();
